@@ -1,0 +1,7 @@
+# Add files here to ignore them from prettier formatting
+
+/dist
+/coverage
+yarn.lock
+package.json
+/node_modules

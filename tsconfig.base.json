@@ -1,0 +1,79 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@nx-giant/claim/api-contract": ["libs/claim/api-contract/src/index.ts"],
+      "@nx-giant/claim/data-access": ["libs/claim/data-access/src/index.ts"],
+      "@nx-giant/claim/feature-create": [
+        "libs/claim/feature-create/src/index.ts"
+      ],
+      "@nx-giant/claim/feature-details": [
+        "libs/claim/feature-details/src/index.ts"
+      ],
+      "@nx-giant/claim/feature-list": ["libs/claim/feature-list/src/index.ts"],
+      "@nx-giant/claim/ui": ["libs/claim/ui/src/index.ts"],
+      "@nx-giant/complaint/api-contract": [
+        "libs/complaint/api-contract/src/index.ts"
+      ],
+      "@nx-giant/complaint/data-access": [
+        "libs/complaint/data-access/src/index.ts"
+      ],
+      "@nx-giant/complaint/feature-create": [
+        "libs/complaint/feature-create/src/index.ts"
+      ],
+      "@nx-giant/complaint/feature-list": [
+        "libs/complaint/feature-list/src/index.ts"
+      ],
+      "@nx-giant/complaint/ui": ["libs/complaint/ui/src/index.ts"],
+      "@nx-giant/contract/data-access": [
+        "libs/contract/data-access/src/index.ts"
+      ],
+      "@nx-giant/contract/feature-details": [
+        "libs/contract/feature-details/src/index.ts"
+      ],
+      "@nx-giant/contract/feature-list": [
+        "libs/contract/feature-list/src/index.ts"
+      ],
+      "@nx-giant/contract/ui": ["libs/contract/ui/src/index.ts"],
+      "@nx-giant/customer/data-access": [
+        "libs/customer/data-access/src/index.ts"
+      ],
+      "@nx-giant/customer/feature-create": [
+        "libs/customer/feature-create/src/index.ts"
+      ],
+      "@nx-giant/customer/feature-details": [
+        "libs/customer/feature-details/src/index.ts"
+      ],
+      "@nx-giant/customer/feature-list": [
+        "libs/customer/feature-list/src/index.ts"
+      ],
+      "@nx-giant/customer/ui": ["libs/customer/ui/src/index.ts"],
+      "@nx-giant/notification/api-customer": [
+        "libs/notification/api-customer/src/index.ts"
+      ],
+      "@nx-giant/notification/data-access": [
+        "libs/notification/data-access/src/index.ts"
+      ],
+      "@nx-giant/notification/feature-list": [
+        "libs/notification/feature-list/src/index.ts"
+      ],
+      "@nx-giant/shared/domain": ["libs/shared/domain/src/index.ts"],
+      "@nx-giant/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@nx-giant/shared/util": ["libs/shared/util/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
