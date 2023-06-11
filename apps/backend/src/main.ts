@@ -18,7 +18,15 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true, // Transform incoming objects to instance of their corresponding DTO classes
+      whitelist: true, // Strip away unwanted properties from the DTO
+      forbidNonWhitelisted: true, // Throw an error when unwanted properties are given
+      validationError: { target: false }, // Do not expose the incoming object in the error message
+    })
+  );
+
   app.useGlobalFilters(new HttpExceptionFilter());
 
   setupSwagger(app);
