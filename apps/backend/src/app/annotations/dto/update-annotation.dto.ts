@@ -1,9 +1,4 @@
-import { IsOptional } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
+import { CreateAnnotationDto } from './create-annotation.dto';
 
-export class UpdateAnnotationDto {
-  @IsOptional()
-  content: string;
-
-  @IsOptional()
-  page: number;
-}
+export class UpdateAnnotationDto extends PartialType(CreateAnnotationDto) {}
