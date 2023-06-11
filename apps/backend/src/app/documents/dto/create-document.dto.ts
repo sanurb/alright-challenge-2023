@@ -17,10 +17,15 @@ export class CreateDocumentDto {
   status: DocumentStatus;
 
   @IsUrl()
+  @IsNotEmpty()
   url: string;
 
   @IsUUID()
+  @IsNotEmpty()
   userId: string;
+
+  @IsUUID(4, { each: true })
+  reviewers: string[];
 
   @IsDate()
   createdAt?: Date;

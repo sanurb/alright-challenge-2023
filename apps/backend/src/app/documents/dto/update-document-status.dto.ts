@@ -17,4 +17,12 @@ export class UpdateDocumentDto {
   @IsUUID()
   @IsOptional()
   userId?: string;
+
+  @IsUUID(4, { each: true })
+  @IsOptional()
+  reviewers?: string[];
+
+  @IsUUID(4, { each: true })
+  @IsOptional()
+  annotations?: string[];
 }
