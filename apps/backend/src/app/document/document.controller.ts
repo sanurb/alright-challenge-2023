@@ -5,11 +5,11 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { DocumentService } from './document.service';
-import { CreateDocumentDto } from './dto/create-document.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { storage } from '../../utils/media.handle';
+import { DocumentService } from './document.service';
+import { CreateDocumentDto } from './dto/create-document.dto';
 
 @ApiTags('documents')
 @Controller('documents')
@@ -22,7 +22,7 @@ export class DocumentController {
   }
 
   @Post('upload')
-  @UseInterceptors(FileInterceptor('document', { storage: storage }))
+  @UseInterceptors(FileInterceptor('document', { storage }))
   upload(@UploadedFile() file) {
     console.log(file);
   }

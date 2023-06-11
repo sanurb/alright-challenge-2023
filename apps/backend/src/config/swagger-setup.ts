@@ -7,7 +7,6 @@ export function setupSwagger(app: INestApplication) {
     .setTitle('Documentacion API')
     .setDescription('Alright challenge 2023')
     .setVersion('1.0')
-    .addTag('Auth')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('documentation', app, document);
