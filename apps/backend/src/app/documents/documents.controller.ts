@@ -8,13 +8,13 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { storage } from '../../utils/media.handle';
-import { DocumentService } from './document.service';
+import { DocumentsService } from './documents.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
 
 @ApiTags('documents')
 @Controller('documents')
-export class DocumentController {
-  constructor(private readonly documentService: DocumentService) {}
+export class DocumentsController {
+  constructor(private readonly documentService: DocumentsService) {}
 
   @Post()
   create(@Body() createDocumentDto: CreateDocumentDto) {

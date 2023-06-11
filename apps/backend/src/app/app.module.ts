@@ -6,7 +6,7 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { DocumentModule } from './document/document.module';
+import { DocumentsModule } from './documents/documents.module';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { DocumentModule } from './document/document.module';
       rootPath: join(__dirname, '..', '..', '..', 'public'),
     }),
     AuthModule,
-    DocumentModule,
+    DocumentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
