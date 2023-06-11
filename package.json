@@ -39,6 +39,7 @@
     "@nestjs/config": "^2.3.2",
     "@nestjs/core": "9.1.1",
     "@nestjs/platform-express": "9.1.1",
+    "@nestjs/serve-static": "^3.0.1",
     "@nestjs/swagger": "^6.3.0",
     "@ngrx/component-store": "15.3.0",
     "@nrwl/angular": "16.3.2",
