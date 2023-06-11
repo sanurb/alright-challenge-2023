@@ -17,6 +17,7 @@
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js",
     "start": "nx serve",
+    "dev:backend": "nx serve backend",
     "build": "nx build",
     "test": "nx test",
     "prepare": "husky install",
