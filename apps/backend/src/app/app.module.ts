@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AnnotationsModule } from './annotations/annotations.module';
@@ -19,6 +20,7 @@ import { UsersModule } from './users/users.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', '..', 'public'),
     }),
+    MongooseModule.forRoot(process.env.DB_URI),
     AnnotationsModule,
     AuthModule,
     DocumentsModule,
