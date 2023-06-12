@@ -47,7 +47,7 @@ export class AuthService {
 
     const isCheck = await compareHash(password, userExist.password);
     if (!isCheck)
-      throw new HttpException('PASSWORD_INVALID', HttpStatus.CONFLICT);
+      throw new HttpException('INVALID_CREDENTIALS', HttpStatus.UNAUTHORIZED);
 
     const userFlat = userExist.toObject();
     delete userFlat.password;
