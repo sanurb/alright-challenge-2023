@@ -9,7 +9,7 @@ export class DocumentModel {
   @Prop({ required: true })
   title: string;
 
-  @Prop({ required: true, enum: Object.values(DocumentStatus) })
+  @Prop({ type: String, required: true, enum: DocumentStatus })
   status: DocumentStatus;
 
   @Prop({ required: true })
