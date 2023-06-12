@@ -1,34 +1,50 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
-import { InjectModel } from '@nestjs/mongoose';
 import { ReviewDocument, ReviewModel } from './model/reviews.scheme';
-import { Model } from 'mongoose';
 
 @Injectable()
 export class ReviewsService {
   constructor(
-    @InjectModel(ReviewModel.name) private reviewModel: Model<ReviewDocument>
+    @InjectModel(ReviewModel.name)
+    private readonly reviewModel: Model<ReviewDocument>
   ) {}
 
-  async create(createReviewDto: CreateReviewDto) {
+  async create(createReviewDto: CreateReviewDto): Promise<ReviewDocument> {
     const review = new this.reviewModel(createReviewDto);
-    return review.save();
+    await review.save();
+    return review;
   }
 
-  findAll() {
-    return `This action returns all reviews`;
+  async findAll(): Promise<ReviewDocument[]> {
+    return this.reviewModel.find().populate('annotations').exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} review`;
+  async findOne(id: string): Promise<ReviewDocument> {
+    const review = await this.reviewModel
+      .findById(id)
+      .populate('annotations')
+      .orFail(new NotFoundException(`Review with id ${id} not found`));
+    return review;
   }
 
-  update(id: number, updateReviewDto: UpdateReviewDto) {
-    return `This action updates a #${id} review`;
+  async update(
+    id: string,
+    updateReviewDto: UpdateReviewDto
+  ): Promise<ReviewDocument> {
+    const review = await this.reviewModel
+      .findByIdAndUpdate(id, updateReviewDto, { new: true })
+      .populate('annotations')
+      .orFail(new NotFoundException(`Review with id ${id} not found`));
+    return review;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} review`;
+  async remove(id: string): Promise<ReviewDocument> {
+    const review = await this.reviewModel
+      .findByIdAndRemove(id)
+      .orFail(new NotFoundException(`Review with id ${id} not found`));
+    return review;
   }
 }
