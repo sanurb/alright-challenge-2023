@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Inject, inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { filter, map, Observable, ReplaySubject, share } from 'rxjs';
 import { Contract } from '../entities/contract.model';
@@ -7,13 +7,16 @@ import { Contract } from '../entities/contract.model';
   providedIn: 'root',
 })
 export class ContractService {
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
+
   private cache$!: Observable<Contract[]>;
+
+  constructor(@Inject('environment') private environment: any) {}
 
   getAll(): Observable<Contract[]> {
     if (!this.cache$) {
       this.cache$ = this.http
-        .get<Contract[]>('/assets/contracts.json')
+        .get<Contract[]>(`${this.environment.baseUrl}/documents`)
         .pipe(share({ connector: () => new ReplaySubject(1) }));
     }
 

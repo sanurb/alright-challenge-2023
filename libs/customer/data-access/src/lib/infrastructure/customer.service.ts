@@ -9,9 +9,9 @@ import { Customer } from '../entities/customer.model';
 export class CustomerService {
   private readonly http = inject(HttpClient);
 
-  constructor(@Inject('environment') private environment: any) {}
-
   private cache$!: Observable<Customer[]>;
+
+  constructor(@Inject('environment') private environment: any) {}
 
   create(customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(
