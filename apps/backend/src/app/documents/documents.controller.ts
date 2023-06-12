@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
@@ -17,8 +18,12 @@ import { DocumentsService } from './documents.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
 import { UpdateDocumentDto } from './dto/update-document.dto';
 import { DocumentDocument } from './model/documents.scheme';
+import { JwtGuard } from '../guards/jwt.guard';
+import { RolesGuard } from '../guards/roles.guard';
+import { HasRole } from '../decorators/has-role.decorator';
 
 @ApiTags('documents')
+@UseGuards(JwtGuard, RolesGuard)
 @Controller('documents')
 export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
@@ -37,6 +42,7 @@ export class DocumentsController {
   }
 
   @Get()
+  @HasRole('admin', 'user')
   findAll(): Promise<DocumentDocument[]> {
     return this.documentsService.findAll();
   }

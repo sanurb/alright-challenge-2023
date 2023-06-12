@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModel, UserSchema } from '../users/model/user.schema';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { JwtStrategy } from './strategy/jwt.strategy';
+import { JwtHandle } from './utils/jwt-handle';
 
 @Module({
   imports: [
@@ -23,6 +25,7 @@ import { UserModel, UserSchema } from '../users/model/user.schema';
     ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy, JwtHandle],
+  exports: [JwtHandle],
 })
 export class AuthModule {}

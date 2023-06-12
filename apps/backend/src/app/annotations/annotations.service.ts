@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAnnotationDto } from './dto/create-annotation.dto';
 import { UpdateAnnotationDto } from './dto/update-annotation.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -27,16 +27,24 @@ export class AnnotationsService {
   }
 
   async findOne(id: string) {
-    return this.annotationModel.findById(id);
+    const annotation = this.annotationModel
+      .findById(id)
+      .orFail(new NotFoundException(`Annotation id ${id} not found`));
+    return annotation;
   }
 
   async update(id: string, updateAnnotationDto: UpdateAnnotationDto) {
-    return this.annotationModel.findByIdAndUpdate(id, updateAnnotationDto, {
-      new: true,
-    });
+    const annotation = this.annotationModel
+      .findByIdAndUpdate(id, updateAnnotationDto, {
+        new: true,
+      })
+      .orFail(new NotFoundException(`Annotation id ${id} not found`));
   }
 
   async remove(id: string) {
-    return this.annotationModel.findByIdAndRemove(id);
+    const annotation = this.annotationModel
+      .findByIdAndRemove(id)
+      .orFail(new NotFoundException(`Annotation id ${id} not found`));
+    return annotation;
   }
 }

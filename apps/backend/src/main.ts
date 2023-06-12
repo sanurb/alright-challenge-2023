@@ -8,10 +8,12 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { json } from 'express';
 
 async function bootstrap() {
+  const port = process.env.PORT || 3000;
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true,
   });
-  app.use(json({ limit: '10mb' }));
+  app.use(json({ limit: '5mb' }));
 
   app.enableVersioning({
     defaultVersion: '1',
@@ -31,7 +33,6 @@ async function bootstrap() {
 
   setupSwagger(app);
 
-  const port = process.env.PORT || 3000;
   await app.listen(port);
 }
 
