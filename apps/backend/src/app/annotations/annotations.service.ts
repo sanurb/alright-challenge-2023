@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAnnotationDto } from './dto/create-annotation.dto';
 import { UpdateAnnotationDto } from './dto/update-annotation.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import {
+  AnnotationDocument,
+  AnnotationModel,
+} from './model/annotations.scheme';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class AnnotationsService {
-  create(createAnnotationDto: CreateAnnotationDto) {
-    return 'This action adds a new annotation';
+  constructor(
+    @InjectModel(AnnotationModel.name)
+    private readonly annotationModel: Model<AnnotationDocument>
+  ) {}
+
+  async create(createAnnotationDto: CreateAnnotationDto) {
+    const createdAnnotation = await this.annotationModel.create(
+      createAnnotationDto
+    );
+    return createdAnnotation;
   }
 
-  findAll() {
-    return `This action returns all annotations`;
+  async findAll() {
+    return this.annotationModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} annotation`;
+  async findOne(id: string) {
+    return this.annotationModel.findById(id);
   }
 
-  update(id: number, updateAnnotationDto: UpdateAnnotationDto) {
-    return `This action updates a #${id} annotation`;
+  async update(id: string, updateAnnotationDto: UpdateAnnotationDto) {
+    return this.annotationModel.findByIdAndUpdate(id, updateAnnotationDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} annotation`;
+  async remove(id: string) {
+    return this.annotationModel.findByIdAndRemove(id);
   }
 }

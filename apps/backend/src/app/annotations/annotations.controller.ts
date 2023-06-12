@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AnnotationsService } from './annotations.service';
@@ -22,26 +22,21 @@ export class AnnotationsController {
     return this.annotationsService.create(createAnnotationDto);
   }
 
-  @Get()
-  findAll() {
-    return this.annotationsService.findAll();
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.annotationsService.findOne(+id);
+    return this.annotationsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateAnnotationDto: UpdateAnnotationDto
   ) {
-    return this.annotationsService.update(+id, updateAnnotationDto);
+    return this.annotationsService.update(id, updateAnnotationDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.annotationsService.remove(+id);
+    return this.annotationsService.remove(id);
   }
 }
