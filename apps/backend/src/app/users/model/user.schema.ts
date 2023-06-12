@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-export type UserDocument = User & Document;
+export type UserDocument = UserModel & Document;
 
 @Schema({ timestamps: true })
-export class User {
+export class UserModel {
   @Prop({ unique: true, default: uuidv4 })
   id: string;
 
@@ -34,4 +34,4 @@ export class User {
   @Prop()
   description: string;
 }
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(UserModel);
