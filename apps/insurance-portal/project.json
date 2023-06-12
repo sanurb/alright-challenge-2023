@@ -7,16 +7,12 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/insurance-portal",
         "index": "apps/insurance-portal/src/index.html",
         "main": "apps/insurance-portal/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/insurance-portal/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -41,6 +37,12 @@
               "type": "anyComponentStyle",
               "maximumWarning": "2kb",
               "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.prod.ts"
             }
           ],
           "outputHashing": "all"
@@ -76,9 +78,7 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "apps/insurance-portal/**/*.ts",
@@ -88,16 +88,12 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/insurance-portal/jest.config.ts",
         "passWithNoTests": true
       }
     }
   },
-  "tags": [
-    "type:app"
-  ]
+  "tags": ["type:app"]
 }

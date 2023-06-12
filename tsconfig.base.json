@@ -71,6 +71,9 @@
         "libs/notification/feature-list/src/index.ts"
       ],
       "@nx-giant/shared/domain": ["libs/shared/domain/src/index.ts"],
+      "@nx-giant/shared/environments": [
+        "libs/shared/environments/src/index.ts"
+      ],
       "@nx-giant/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@nx-giant/shared/util": ["libs/shared/util/src/index.ts"]
     }

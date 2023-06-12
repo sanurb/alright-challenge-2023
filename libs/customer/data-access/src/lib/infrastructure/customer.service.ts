@@ -1,20 +1,23 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Inject, inject, Injectable } from '@angular/core';
 import { filter, map, Observable, ReplaySubject, share } from 'rxjs';
 import { Customer } from '../entities/customer.model';
+import { environment } from '@nx-giant/shared/environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService {
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
+
+  constructor(@Inject('environment') private environment: any) {}
 
   private cache$!: Observable<Customer[]>;
 
   getAll(): Observable<Customer[]> {
     if (!this.cache$) {
       this.cache$ = this.http
-        .get<Customer[]>('http://localhost:3002/v1/users')
+        .get<Customer[]>(`${this.environment.baseUrl}/users`)
         .pipe(share({ connector: () => new ReplaySubject(1) }));
     }
 
