@@ -40,4 +40,4 @@ testem.log
 Thumbs.db
 
 .angular
-apps/backend/.env
+.env.development
