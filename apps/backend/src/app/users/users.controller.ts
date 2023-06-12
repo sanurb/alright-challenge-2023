@@ -27,6 +27,11 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @Get('email/:email')
+  findOneByEmail(@Param('email') email: string): Promise<UserDocument | null> {
+    return this.usersService.findOneByEmail(email);
+  }
+
   @Put(':id')
   update(
     @Param('id') id: string,

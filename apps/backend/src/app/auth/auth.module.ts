@@ -6,6 +6,9 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { JwtHandle } from './utils/jwt-handle';
+import { IsEmailAlreadyExistConstraint } from './utils/validators/is-email-already-exist.constraint';
+import { UsersModule } from '../users/users.module';
+import { UsersService } from '../users/users.service';
 
 @Module({
   imports: [
@@ -23,9 +26,16 @@ import { JwtHandle } from './utils/jwt-handle';
         schema: UserSchema,
       },
     ]),
+    UsersModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, JwtHandle],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    JwtHandle,
+    UsersService,
+    IsEmailAlreadyExistConstraint,
+  ],
   exports: [JwtHandle],
 })
 export class AuthModule {}
