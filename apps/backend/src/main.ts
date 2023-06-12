@@ -1,11 +1,15 @@
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import {
+  BadRequestException,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
-import { AppModule } from './app/app.module';
-import { setupSwagger } from './config/swagger-setup';
-import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { ValidationError, useContainer } from 'class-validator';
 import { json } from 'express';
+import { AppModule } from './app/app.module';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { setupSwagger } from './config/swagger-setup';
 
 async function bootstrap() {
   const port = process.env.PORT || 3000;
@@ -26,11 +30,18 @@ async function bootstrap() {
       whitelist: true, // Strip away unwanted properties from the DTO
       forbidNonWhitelisted: true, // Throw an error when unwanted properties are given
       validationError: { target: false }, // Do not expose the incoming object in the error message
+      exceptionFactory: (errors: ValidationError[]) => {
+        const messages = errors.map(
+          (error) => `${Object.values(error.constraints).join(', ')}`
+        );
+
+        return new BadRequestException(messages);
+      },
     })
   );
 
   app.useGlobalFilters(new HttpExceptionFilter());
-
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
   setupSwagger(app);
 
   await app.listen(port);

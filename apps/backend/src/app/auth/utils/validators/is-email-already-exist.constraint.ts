@@ -13,11 +13,10 @@ import { UsersService } from '../../../users/users.service';
 export class IsEmailAlreadyExistConstraint
   implements ValidatorConstraintInterface
 {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(protected readonly usersService: UsersService) {}
 
-  async validate(email: string) {
-    const user = await this.usersService.findOneByEmail(email);
-    return user == null;
+  async validate(text: string) {
+    return !(await this.usersService.findOneByEmail(text));
   }
 
   defaultMessage(args: ValidationArguments) {
