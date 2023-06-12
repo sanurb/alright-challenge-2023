@@ -14,7 +14,7 @@ export class CustomerService {
   getAll(): Observable<Customer[]> {
     if (!this.cache$) {
       this.cache$ = this.http
-        .get<Customer[]>('/assets/customers.json')
+        .get<Customer[]>('http://localhost:3002/v1/users')
         .pipe(share({ connector: () => new ReplaySubject(1) }));
     }
 

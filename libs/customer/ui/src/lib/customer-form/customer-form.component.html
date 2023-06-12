@@ -6,26 +6,10 @@
   class="grid grid-rows-4 grid-cols-2 gap-4"
 >
   <mat-form-field appearance="fill">
-    <mat-label>Firstname</mat-label>
-    <input matInput placeholder="John" [formControlName]="'firstName'" />
-    <mat-error *ngIf="firstName.hasError('required')">
-      Firstname is required
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Lastname</mat-label>
-    <input matInput placeholder="Doe" [formControlName]="'lastName'" />
-    <mat-error *ngIf="lastName.hasError('required')">
-      Lastname is required
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Phonenumber</mat-label>
-    <input matInput placeholder="555" [formControlName]="'phoneNumber'" />
-    <mat-error *ngIf="phoneNumber.hasError('required')">
-      Pohonenumber is required
+    <mat-label>Nombre</mat-label>
+    <input matInput placeholder="John" [formControlName]="'name'" />
+    <mat-error *ngIf="name.hasError('required')">
+      Nombre es requerido
     </mat-error>
   </mat-form-field>
 
@@ -37,30 +21,18 @@
       [formControlName]="'email'"
     />
     <mat-error *ngIf="email.hasError('required')">
-      Email is required
+      Correo es requerido
     </mat-error>
     <mat-error *ngIf="email.hasError('email')">
-      Email format is invalid
+      Formato de correo invalido
     </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Passport Number</mat-label>
-    <input matInput placeholder="123456" [formControlName]="'passportNumber'" />
-    <mat-error *ngIf="passportNumber.hasError('required')">
-      Passport Number is required
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>National Identification Number</mat-label>
-    <input
-      matInput
-      placeholder="123456"
-      [formControlName]="'nationalIdentificationNumber'"
-    />
-    <mat-error *ngIf="nationalIdentificationNumber.hasError('required')">
-      National Identification Number is required
+    <mat-label>Contraseña</mat-label>
+    <input matInput placeholder="123456" [formControlName]="'password'" />
+    <mat-error *ngIf="password.hasError('required')">
+      Contraseña es requerida
     </mat-error>
   </mat-form-field>
 
@@ -71,6 +43,6 @@
     [disabled]="!form.valid || form.disabled"
     class="col-span-2"
   >
-    Create
+    Registrarse
   </button>
 </form>
