@@ -27,10 +27,20 @@ export class CustomerFacadeService extends ComponentStore<State> {
     )
   );
 
-  readonly addCustomer = this.updater((state: State, customer: Customer) => ({
-    ...state,
-    createdCustomers: [customer, ...state.createdCustomers],
-  }));
+  readonly addCustomer = this.effect<Customer>((customer$) =>
+    customer$.pipe(
+      exhaustMap((customer) =>
+        this.customerService.create(customer).pipe(
+          tapResponse((createdCustomer) => {
+            this.patchState((state) => ({
+              ...state,
+              createdCustomers: [createdCustomer, ...state.createdCustomers],
+            }));
+          }, console.error)
+        )
+      )
+    )
+  );
 
   constructor() {
     super({

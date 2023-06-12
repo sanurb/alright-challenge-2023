@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, inject, Injectable } from '@angular/core';
-import { filter, map, Observable, ReplaySubject, share } from 'rxjs';
+import { filter, map, Observable, ReplaySubject, share, tap } from 'rxjs';
 import { Customer } from '../entities/customer.model';
-import { environment } from '@nx-giant/shared/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +13,21 @@ export class CustomerService {
 
   private cache$!: Observable<Customer[]>;
 
+  create(customer: Customer): Observable<Customer> {
+    return this.http.post<Customer>(
+      `${this.environment.baseUrl}/auth/register`,
+      customer
+    );
+  }
+
   getAll(): Observable<Customer[]> {
     if (!this.cache$) {
       this.cache$ = this.http
         .get<Customer[]>(`${this.environment.baseUrl}/users`)
-        .pipe(share({ connector: () => new ReplaySubject(1) }));
+        .pipe(
+          tap((data) => console.log(data)), // agregar esto
+          share({ connector: () => new ReplaySubject(1) })
+        );
     }
 
     return this.cache$;
