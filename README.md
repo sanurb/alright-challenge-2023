@@ -43,7 +43,7 @@ Tambien para mayor facilidad se recomienda instalar la extension de nx la cual l
 
 A continuación, se muestra el diagrama de casos de uso del sistema:
 
-![Diagrama de Casos de Uso](public\assets\diagrama-caso-de-uso-sistema-revision-documentos.svg)
+![Diagrama de Casos de Uso](./public/assets/diagrama-caso-de-uso-sistema-revision-documentos.svg)
 
 diagrama realizado con [PlantUML](http://www.plantuml.com/)
 
