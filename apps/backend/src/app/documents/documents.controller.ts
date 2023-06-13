@@ -21,6 +21,7 @@ import { DocumentDocument } from './model/documents.scheme';
 import { JwtGuard } from '../guards/jwt.guard';
 import { RolesGuard } from '../guards/roles.guard';
 import { HasRole } from '../decorators/has-role.decorator';
+import { DocumentStatus } from './dto/document-status.enum';
 
 @ApiTags('documents')
 @UseGuards(JwtGuard, RolesGuard)
@@ -37,8 +38,16 @@ export class DocumentsController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('document', { storage }))
-  upload(@UploadedFile() file) {
-    console.log(file);
+  async upload(
+    @UploadedFile() file,
+    @Body() body: any
+  ): Promise<DocumentDocument> {
+    const dto = new CreateDocumentDto();
+    dto.title = body.title;
+    dto.userId = body.userId;
+    dto.status = DocumentStatus.UNREVIEWED;
+    dto.url = file.path;
+    return this.documentsService.create(dto);
   }
 
   @Get()

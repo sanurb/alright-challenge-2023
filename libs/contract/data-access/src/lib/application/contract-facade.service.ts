@@ -1,10 +1,11 @@
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ComponentStore } from '@ngrx/component-store';
-import { tapResponse } from '@ngrx/component-store';
+import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { exhaustMap, map, Observable, of, pipe } from 'rxjs';
 import { Contract } from '../entities/contract.model';
 import { ContractService } from '../infrastructure/contract.service';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { StorageService } from '@nx-giant/shared/util';
+import { Customer } from '../entities/customer.model';
 
 interface State {
   contracts: Contract[];
@@ -15,6 +16,7 @@ interface State {
 })
 export class ContractFacadeService extends ComponentStore<State> {
   private contractService = inject(ContractService);
+  private readonly storageService = inject(StorageService);
 
   readonly contracts$ = this.select(({ contracts }) => contracts);
 
@@ -45,6 +47,7 @@ export class ContractFacadeService extends ComponentStore<State> {
     const formData = new FormData();
     formData.append('document', file);
     formData.append('title', title);
+    formData.append('userId', (this.storageService.get('user') as Customer).id);
 
     return this.contractService.upload(formData).pipe(
       map((event: HttpEvent<any>) => {
