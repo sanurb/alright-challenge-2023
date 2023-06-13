@@ -72,6 +72,8 @@
           (change)="onFileSelected($event)"
           #fileInput
           type="file"
+          accept="application/pdf"
+          name="upload"
         />
       </label>
     </div>
@@ -89,6 +91,7 @@
     mat-button
     type="submit"
     [disabled]="!uploadForm.valid"
+    (click)="onSubmit()"
     class="py-2 px-4 rounded bg-blue-500 text-white"
   >
     Upload

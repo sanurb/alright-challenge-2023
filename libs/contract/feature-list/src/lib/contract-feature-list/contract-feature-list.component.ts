@@ -49,8 +49,16 @@ export class ContractFeatureListComponent implements OnInit {
       width: '800px',
     });
 
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(`Dialog result: ${result}`);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const file = result.file;
+        const title = result.title;
+
+        this.facade.uploadFile(file, title).subscribe((response) => {
+          console.log(response);
+          // handle the response
+        });
+      }
     });
   }
 }

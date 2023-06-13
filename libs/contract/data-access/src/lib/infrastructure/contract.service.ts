@@ -1,5 +1,5 @@
 import { Inject, inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { filter, map, Observable, ReplaySubject, share } from 'rxjs';
 import { Contract } from '../entities/contract.model';
 
@@ -28,5 +28,19 @@ export class ContractService {
       map((contracts) => contracts.find((c) => c.id === id)),
       filter((contract): contract is Contract => !!contract)
     );
+  }
+
+  upload(formData: FormData): Observable<HttpEvent<any>> {
+    const req = new HttpRequest(
+      'POST',
+      `${this.environment.baseUrl}/documents/upload`,
+      formData,
+      {
+        reportProgress: true,
+        responseType: 'json',
+      }
+    );
+
+    return this.http.request(req);
   }
 }

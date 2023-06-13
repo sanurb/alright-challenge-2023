@@ -28,8 +28,7 @@ import { ContractFacadeService } from '@nx-giant/contract/data-access';
 })
 export class DialogUploadComponent {
   private readonly fb = inject(FormBuilder);
-  private readonly dialogRef = inject(MatDialogRef);
-  private facade = inject(ContractFacadeService);
+  private readonly dialogRef = inject(MatDialogRef<DialogUploadComponent>);
 
   selectedFileName: string | null = null;
 
@@ -48,7 +47,7 @@ export class DialogUploadComponent {
 
   onSubmit() {
     if (this.uploadForm.valid) {
-      // Implement the upload functionality here
+      this.dialogRef.close(this.uploadForm.value);
     }
   }
 
