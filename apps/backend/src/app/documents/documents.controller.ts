@@ -12,7 +12,13 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { storage } from '../../utils/media.handle';
 import { DocumentsService } from './documents.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
@@ -30,6 +36,12 @@ export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a document' })
+  @ApiResponse({
+    status: 201,
+    description: 'The document has been successfully created.',
+  })
+  @ApiBody({ type: CreateDocumentDto })
   create(
     @Body(ValidationPipe) dto: CreateDocumentDto
   ): Promise<DocumentDocument> {
@@ -38,6 +50,12 @@ export class DocumentsController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('document', { storage }))
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({ summary: 'Upload a document' })
+  @ApiResponse({
+    status: 201,
+    description: 'The document has been successfully uploaded.',
+  })
   async upload(
     @UploadedFile() file,
     @Body() body: any
@@ -52,16 +70,26 @@ export class DocumentsController {
 
   @Get()
   @HasRole('admin', 'user')
+  @ApiOperation({ summary: 'Get all documents' })
+  @ApiResponse({ status: 200, description: 'Return all documents.' })
   findAll(): Promise<DocumentDocument[]> {
     return this.documentsService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get a document by ID' })
+  @ApiResponse({ status: 200, description: 'Return the document.' })
   findOne(@Param('id') id: string): Promise<DocumentDocument> {
     return this.documentsService.findOne(id);
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update a document' })
+  @ApiResponse({
+    status: 200,
+    description: 'The document has been successfully updated.',
+  })
+  @ApiBody({ type: UpdateDocumentDto })
   update(
     @Param('id') id: string,
     @Body(ValidationPipe) dto: UpdateDocumentDto
@@ -70,6 +98,11 @@ export class DocumentsController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a document' })
+  @ApiResponse({
+    status: 200,
+    description: 'The document has been successfully deleted.',
+  })
   remove(@Param('id') id: string): Promise<DocumentDocument> {
     return this.documentsService.remove(id);
   }
