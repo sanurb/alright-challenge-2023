@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { authGuard } from '@nx-giant/customer/data-access';
 import { CanDeactivateGuard } from '@nx-giant/shared/util';
 
 export interface RoutingConfig {
@@ -12,7 +13,7 @@ export interface RoutingConfig {
 
 export const routingConfigs: RoutingConfig[] = [
   {
-    domain: 'contract',
+    domain: 'My documents',
     routes: [
       {
         path: 'details/:id',
@@ -25,6 +26,7 @@ export const routingConfigs: RoutingConfig[] = [
         path: 'list',
         icon: 'list',
         label: 'List',
+        canActivate: [authGuard],
         loadComponent: async () =>
           (await import('@nx-giant/contract/feature-list'))
             .ContractFeatureListComponent,

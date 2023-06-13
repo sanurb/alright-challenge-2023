@@ -1,7 +1,7 @@
 export interface Customer {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password: string;
-  token: string;
+  user?: any;
 }
