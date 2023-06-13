@@ -1,2 +1,2 @@
 export * from './lib/can-deactivate.guard';
-export * from './lib/storage/storage';
+export * from './lib/storage/storage.service';
