@@ -1,0 +1,96 @@
+<h1 mat-dialog-title class="text-2xl text-gray-800 font-bold mb-8 mt-4 ms-4">
+  Upload Document
+</h1>
+<div mat-dialog-content class="p-8 space-y-6">
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <mat-form-field class="w-full">
+      <mat-label class="text-lg">Title</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        required
+        class="border p-2 rounded"
+      />
+    </mat-form-field>
+
+    <div class="flex items-center justify-center w-full">
+      <label
+        for="file"
+        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
+      >
+        <div
+          *ngIf="selectedFileName; else uploadPrompt"
+          class="flex flex-col items-center justify-center pt-5 pb-6"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-10 h-10 mb-3 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            ></path>
+          </svg>
+          <p class="mb-2 text-sm text-gray-500">
+            <span class="font-semibold">{{ selectedFileName }}</span>
+          </p>
+          <p class="text-xs text-gray-500">Click to change</p>
+        </div>
+        <ng-template #uploadPrompt>
+          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+            <svg
+              aria-hidden="true"
+              class="w-10 h-10 mb-3 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+              ></path>
+            </svg>
+            <p class="mb-2 text-sm text-gray-500">
+              <span class="font-semibold">Click to upload</span> or drag and
+              drop
+            </p>
+            <p class="text-xs text-gray-500">PDF Files Only</p>
+          </div>
+        </ng-template>
+        <input
+          id="file"
+          hidden
+          (change)="onFileSelected($event)"
+          #fileInput
+          type="file"
+        />
+      </label>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions class="flex justify-end space-x-2 pt-6">
+  <button
+    mat-button
+    (click)="onCancel()"
+    class="py-2 px-4 rounded bg-gray-500 text-white"
+  >
+    Cancel
+  </button>
+  <button
+    mat-button
+    type="submit"
+    [disabled]="!uploadForm.valid"
+    class="py-2 px-4 rounded bg-blue-500 text-white"
+  >
+    Upload
+  </button>
+</div>

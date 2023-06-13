@@ -1,9 +1,17 @@
-import { Customer } from './customer.model';
+export enum DocumentStatus {
+  UNREVIEWED = 'UNREVIEWED',
+  IN_REVIEW = 'IN_REVIEW',
+  REJECTED = 'REJECTED',
+  ACCEPTED = 'ACCEPTED',
+}
 
 export interface Contract {
   id: string;
-  policyNumber: string;
-  customer: Customer;
+  title: string;
+  status: DocumentStatus;
+  url: string;
+  userId: string;
+  reviews: string[];
   createdOn: Date;
-  insuranceStart: Date;
+  updatedOn: Date;
 }

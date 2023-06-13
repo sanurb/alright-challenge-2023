@@ -13,7 +13,7 @@ export interface RoutingConfig {
 
 export const routingConfigs: RoutingConfig[] = [
   {
-    domain: 'My documents',
+    domain: 'document',
     routes: [
       {
         path: 'details/:id',

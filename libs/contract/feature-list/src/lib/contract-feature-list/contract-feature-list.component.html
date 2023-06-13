@@ -1,4 +1,7 @@
-<nx-giant-title title="Contracts"></nx-giant-title>
+<nx-giant-title title="Documents"> </nx-giant-title>
+<button mat-button color="primary" (click)="openUploadDialog()">
+  Upload Document
+</button>
 
 <ng-container *ngIf="contracts$ | async as contracts">
   <table mat-table [dataSource]="contracts">
